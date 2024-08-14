@@ -1,14 +1,14 @@
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { appRoutes } from "@/entities/router/routes";
 
 function App() {
-
   return (
     <div >
       <BrowserRouter>
-        {/*<Navbar/>*/}
+        {/* <Navbar /> */}
         <Routes>
-          {privateRoutes.map(route =>
-            <Route key={route.element} exact={route.exact}
+          {appRoutes.map(route =>
+            <Route key={route.path}
               path={route.path}
               element={route.element} />
           )}
