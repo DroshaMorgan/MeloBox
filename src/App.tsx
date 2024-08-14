@@ -1,9 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { appRoutes } from "./router/routes";
+import './global.css'
+
 
 function App() {
   return (
-    <div >
+    <div>
+      <div className="text-xs">
+        qwq
+      </div>
       <BrowserRouter>
         {/* <Navbar /> */}
         <Routes>
