@@ -1,3 +1,4 @@
+import Main from "../entities/main/Main";
 
 
 export const appRoutes = [
@@ -5,5 +6,5 @@ export const appRoutes = [
     // { path: "/artists/albums/:id", element: <Albums />, exact: true },
     // { path: "/artists/albums/:artist/:id", element: <Tracks />, exact: true },
     // { path: "/music-app-react", element: <Main />, exact: true },
-    { path: "/", element: <Main />, exact: true },
+    { path: "/", element: <Main /> },
 ];

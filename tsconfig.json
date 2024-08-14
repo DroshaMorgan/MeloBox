@@ -1,13 +1,4 @@
 {
-  "compilerOptions": {
-    /* Alias */
-    "baseUrl": "./",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-    }
-  },
   "files": [],
   "references": [
     {
