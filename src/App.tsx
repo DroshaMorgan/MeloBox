@@ -6,8 +6,8 @@ import './global.css'
 function App() {
   return (
     <div>
-      <div className="text-xs">
-        qwq
+      <div className="text-xl">
+        qwqa
       </div>
       <BrowserRouter>
         {/* <Navbar /> */}

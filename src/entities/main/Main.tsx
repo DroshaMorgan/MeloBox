@@ -4,7 +4,7 @@ const Main = () => {
     return (
         <div>
             {/*<Navbar/>*/}
-            <div className="red text-xl flex end-8 w-28">
+            <div className="bg-red-500">
                 hello
             </div>
 
