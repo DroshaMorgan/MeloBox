@@ -1,31 +1,32 @@
-import { Button, Image } from "antd";
+import { Button } from "antd";
+import { memo } from "react";
 import { Link } from "react-router-dom";
-import mainBcg from "../../entities/main/main-bcg.jpg";
-// import mainBcg from "@/entities/main/main-bcg.jpg";
 
-
-const Main = () => {
+const Main = memo(() => {
     return (
 
+        <div style={{
+            backgroundImage: `url(/src/assets/main-bcg.jpg)`,
+        }}>
+            <div className="bg-black bg-opacity-70">
+                <div className="flex items-center flex-col justify-center h-svh text-white gap-6 text-3xl">
+                    <span>
+                        Откройте для себя новых независимых исполнителей
+                    </span>
 
-        <div className="flex items-center flex-col justify-center h-svh">
-            <Image src={mainBcg} />
-            <div className="main-bcg__info-block-top red">
-                Откройте для себя новых независимых исполнителей
-            </div>
+                    <Button size="large" type="primary">
+                        <Link to="/home" className="text-xl">
+                            Начать
+                        </Link>
+                    </Button>
 
-            <Button>
-                <Link to="/" className="main-bcg__info-block-middle">
-                    Начать
-                </Link>
-            </Button>
-
-
-            <div className="main-bcg__info-block-bottom">
-                Используется Jamendo music API
+                    <span className="text-lg">
+                        Используется Jamendo music API
+                    </span>
+                </div>
             </div>
         </div>
     );
-};
+});
 
 export default Main;
