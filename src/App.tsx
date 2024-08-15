@@ -1,16 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { appRoutes } from "./router/routes";
-import './global.css'
-
 
 function App() {
   return (
     <div>
-      <div className="text-xl">
-        qwqa
-      </div>
       <BrowserRouter>
-        {/* <Navbar /> */}
         <Routes>
           {appRoutes.map(route =>
             <Route key={route.path}
