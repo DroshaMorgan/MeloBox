@@ -1,8 +1,4 @@
-
-// import Main from "/src/entities/main/Main";
-
-import Main from "../entities/main/Main";
-
+import Main from "@/entities/main/Main";
 
 export const appRoutes = [
     // { path: "/artists/albums/:id", element: <Albums />},
