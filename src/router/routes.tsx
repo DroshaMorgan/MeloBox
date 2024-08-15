@@ -1,10 +1,13 @@
+
+// import Main from "/src/entities/main/Main";
+
 import Main from "../entities/main/Main";
 
 
 export const appRoutes = [
-    // { path: "/artists", element: <Artists />, exact: true },
-    // { path: "/artists/albums/:id", element: <Albums />, exact: true },
-    // { path: "/artists/albums/:artist/:id", element: <Tracks />, exact: true },
-    // { path: "/music-app-react", element: <Main />, exact: true },
+    // { path: "/artists/albums/:id", element: <Albums />},
+    // { path: "/artists/albums/:artist/:id", element: <Tracks />},
+    // { path: "/music-app-react", element: <Main />},
+    // { path: "/home", element: <Home /> },
     { path: "/", element: <Main /> },
 ];
