@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const Main = memo(() => {
     return (
-
         <div style={{
             backgroundImage: `url(src/assets/main-bcg.jpg)`,
         }}>
