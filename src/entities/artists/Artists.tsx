@@ -32,7 +32,7 @@ const Artists = memo(() => {
     useEffect(
         () => {
             fetching()
-        }, []);
+        }, [fetching]);
 
     return (
         <Table columns={columns} dataSource={dataFetch} />

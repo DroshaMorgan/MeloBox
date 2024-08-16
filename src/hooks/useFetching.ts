@@ -9,8 +9,8 @@ export const useFetching = (url: string) => {
             const resp = await fetch(url);
             const respData = await resp.json();
             setDataFetch(respData.results);
-        } catch (e: any) {
-            console.log(e.message)
+        } catch (e: unknown) {
+            console.log(e)
         }
     }
 
