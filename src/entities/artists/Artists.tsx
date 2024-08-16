@@ -1,6 +1,17 @@
-import { memo } from "react";
+import { useFetching } from "@/hooks/useFetching";
+import { memo, useEffect } from "react";
 
-const Home = memo(() => {
+const API_URL_ARTISTS =
+    'https://api.jamendo.com/v3.0/artists/?client_id=e1ba0143';
+
+const Artists = memo(() => {
+    const { dataFetch, fetching } = useFetching(API_URL_ARTISTS)
+    console.log(dataFetch)
+    useEffect(
+        () => {
+            fetching()
+        }, []);
+
     return (
 
         <div className="h-full">
@@ -9,4 +20,4 @@ const Home = memo(() => {
     );
 });
 
-export default Home;
+export default Artists;

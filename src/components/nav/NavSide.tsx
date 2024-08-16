@@ -6,6 +6,7 @@ export const NavSide = memo(() => {
         <header className="fixed top-0 flex h-full w-16 shrink-0 flex-col border-r bg-secondary">
             <NavLink name='MLE' path='/' />
             <NavLink name='HM' path='/home' />
+            <NavLink name='AR' path='/artists' />
         </header>
     );
 });
