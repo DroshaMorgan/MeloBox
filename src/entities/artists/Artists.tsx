@@ -24,7 +24,6 @@ const columns: TableProps['columns'] = [
         key: 'joindate',
         render: (joindate) => joindate,
     },
-
 ];
 
 const Artists = memo(() => {
