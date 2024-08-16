@@ -6,9 +6,9 @@ export const useFetching = (url: string) => {
     const fetching = async () => {
         try {
             setIsLoading(true)
-            const respArt = await fetch(url);
-            const respDataArt = await respArt.json();
-            setDataFetch(respDataArt.results);
+            const resp = await fetch(url);
+            const respData = await resp.json();
+            setDataFetch(respData.results);
         } catch (e: any) {
             console.log(e.message)
         }
