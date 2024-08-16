@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Home = memo(() => {
     return (
 
-        <div className="h-full">
+        <div >
             home
         </div>
     );
