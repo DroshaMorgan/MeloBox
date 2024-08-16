@@ -1,10 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { appRoutes } from "./router/routes";
+import { appRoutes } from "@/router/routes";
+import { NavSide } from "@/components/nav/NavSide";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
+    <BrowserRouter>
+      <NavSide />
+
+      <div className="pl-16">
         <Routes>
           {appRoutes.map(route =>
             <Route key={route.path}
@@ -12,8 +15,8 @@ function App() {
               element={route.element} />
           )}
         </Routes>
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   )
 }
 
