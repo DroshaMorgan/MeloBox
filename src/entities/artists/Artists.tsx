@@ -1,8 +1,8 @@
+import { API_URL_ARTISTS, CLIENT_ID } from "@/libs/constants";
 import { Image, Table, TableProps } from "antd";
+import axios from "axios";
 import { memo, useEffect, useState } from "react";
 
-const API_URL_ARTISTS =
-    'https://api.jamendo.com/v3.0/artists/?client_id=e1ba0143';
 
 const columns: TableProps['columns'] = [
     {
@@ -27,20 +27,30 @@ const columns: TableProps['columns'] = [
 
 const Artists = memo(() => {
     const [dataFetchArt, setDataFetchArt] = useState([]);
-    const fetchingArt = async () => {
+    const [loading, setLoading] = useState(true);
+
+    async function fetchingArt() {
         try {
-            const resp = await fetch(API_URL_ARTISTS);
-            const respData = await resp.json();
-            setDataFetchArt(respData.results);
-        } catch (e: unknown) {
-            console.log(e)
+            const { data } = await axios.get(API_URL_ARTISTS, {
+                params: {
+                    client_id: CLIENT_ID
+                }
+            })
+            setDataFetchArt(data.results)
+        } finally {
+            setLoading(false)
         }
     }
-    console.log(dataFetchArt)
 
-    useEffect(() => { fetchingArt() }, [])
+    useEffect(() => {
+        fetchingArt()
+    }, [])
+
     return (
-        <Table columns={columns} dataSource={dataFetchArt} />
+        <Table columns={columns}
+            dataSource={dataFetchArt}
+            loading={loading}
+        />
     );
 });
 
