@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Main = memo(() => {
     return (
         <div style={{
-            backgroundImage: `url(src/assets/main-bcg.jpg)`,
+            backgroundImage: `url(https://i.etsystatic.com/35092126/r/il/26f5d7/3863487113/il_570xN.3863487113_hg2v.jpg)`,
         }}>
             <div className="bg-black bg-opacity-70">
 
