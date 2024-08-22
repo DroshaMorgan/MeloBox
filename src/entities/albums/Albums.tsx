@@ -1,8 +1,8 @@
-import { API_URL_ARTISTS, CLIENT_ID } from "@/libs/constants";
+import { API_URL_ALBUMS_FULL, CLIENT_ID } from "@/libs/constants";
 import { Image, Table, TableProps } from "antd";
 import axios from "axios";
 import { memo, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 const columns: TableProps['columns'] = [
@@ -16,50 +16,43 @@ const columns: TableProps['columns'] = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        render: (name) => name,
     },
     {
-        title: 'Join date',
-        dataIndex: 'joindate',
-        key: 'joindate',
-        render: (joindate) => joindate,
+        title: 'Release date',
+        dataIndex: 'releasedate',
+        key: 'releasedate',
     },
 ];
 
-const Artists = memo(() => {
-    const navigate = useNavigate()
-
-    const [dataFetchArt, setDataFetchArt] = useState([]);
+const Albums = memo(() => {
+    const [dataFetchAlb, setDataFetchAlb] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    async function fetchingArt() {
+    const artist_name = useParams();
+
+    async function fetchingAlb() {
         try {
-            const { data } = await axios.get(API_URL_ARTISTS, {
+            const { data } = await axios.get(API_URL_ALBUMS_FULL + artist_name.id, {
                 params: {
                     client_id: CLIENT_ID
                 }
             })
-            setDataFetchArt(data.results)
+            setDataFetchAlb(data.results)
         } finally {
             setLoading(false)
         }
     }
 
     useEffect(() => {
-        fetchingArt()
+        fetchingAlb()
     }, [])
 
     return (
         <Table columns={columns}
-            dataSource={dataFetchArt}
+            dataSource={dataFetchAlb}
             loading={loading}
-            onRow={({ name }) => ({
-                onClick() {
-                    navigate(`albums/${name}`)
-                }
-            })}
         />
     );
 });
 
-export default Artists;
+export default Albums;
