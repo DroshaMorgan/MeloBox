@@ -39,7 +39,7 @@ const Artists = memo(() => {
       loading={loading}
       onRow={({ name }) => ({
         onClick() {
-          navigate(`albums/${name}`);
+          navigate(name);
         },
       })}
     />
