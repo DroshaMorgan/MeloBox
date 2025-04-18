@@ -32,6 +32,7 @@ const Albums = memo(() => {
     url: API_URL_ALBUMS_FULL + artist_name.id,
   });
 
+  console.log(API_URL_ALBUMS_FULL + artist_name.id);
   return (
     <Table
       columns={columns}
