@@ -1,4 +1,4 @@
-import { useFetching } from '@/hooks/useFetching';
+import { useFetchingQuery } from '@/hooks/useFetchingQuery';
 import { API_URL_TRACKS } from '@/libs/constants';
 import { Image, Table, TableProps } from 'antd';
 import { memo, useMemo } from 'react';
@@ -23,12 +23,13 @@ const Tracks = memo(() => {
 
   const params = useMemo(() => ({ name: name.id }), [name]);
 
-  const { data, loading } = useFetching({
+  const { data, isLoading } = useFetchingQuery({
     url: API_URL_TRACKS,
     params,
+    queryKey: ['tracks', name.id ?? ''],
   });
 
-  return <Table columns={columns} dataSource={data} loading={loading} />;
+  return <Table columns={columns} dataSource={data} loading={isLoading} />;
 });
 
 export default Tracks;

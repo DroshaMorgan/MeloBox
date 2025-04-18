@@ -1,4 +1,4 @@
-import { useFetching } from '@/hooks/useFetching';
+import { useFetchingQuery } from '@/hooks/useFetchingQuery';
 import { API_URL_ARTISTS } from '@/libs/constants';
 import { Image, Table, TableProps } from 'antd';
 import { memo } from 'react';
@@ -28,15 +28,16 @@ const columns: TableProps['columns'] = [
 const Artists = memo(() => {
   const navigate = useNavigate();
 
-  const { data, loading } = useFetching({
+  const { data, isLoading } = useFetchingQuery({
     url: API_URL_ARTISTS,
+    queryKey: ['artists'],
   });
 
   return (
     <Table
       columns={columns}
       dataSource={data}
-      loading={loading}
+      loading={isLoading}
       onRow={({ name }) => ({
         onClick() {
           navigate(name);
