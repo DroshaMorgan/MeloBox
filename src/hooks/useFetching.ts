@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { CLIENT_ID } from "@/libs/constants";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { CLIENT_ID } from '@/libs/constants';
 
 interface UseFetchingOptions {
   url: string;
@@ -13,31 +13,26 @@ export function useFetching({ url, params }: UseFetchingOptions) {
   const [error, setError] = useState<unknown>();
 
   useEffect(() => {
-    let isMounted = true;
+    const controller = new AbortController();
 
     async function fetchData() {
       try {
         const response = await axios.get(url, {
           params: { client_id: CLIENT_ID, ...params },
+          signal: controller.signal,
         });
-        if (isMounted) {
-          setData(response.data.results);
-        }
+        setData(response.data.results);
       } catch (err) {
-        if (isMounted) {
-          setError(err);
-        }
+        setError(err);
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     }
 
     fetchData();
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
   }, [params, url]);
 
