@@ -1,18 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { CLIENT_ID } from '@/libs/constants';
 
-export const useFetching = (url: string) => {
-    const [dataFetch, setDataFetch] = useState([]);
-    const [isLoading, setIsLoading] = useState(false)
-    const fetching = async () => {
-        try {
-            setIsLoading(true)
-            const resp = await fetch(url);
-            const respData = await resp.json();
-            setDataFetch(respData.results);
-        } catch (e: unknown) {
-            console.log(e)
-        }
+interface UseFetchingOptions {
+  url: string;
+  params?: Record<string, unknown>;
+}
+
+export function useFetching({ url, params }: UseFetchingOptions) {
+  const [data, setData] = useState<[] | undefined>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<unknown>();
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function fetchData() {
+      try {
+        const response = await axios.get(url, {
+          params: { client_id: CLIENT_ID, ...params },
+          signal: controller.signal,
+        });
+        setData(response.data.results);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     }
 
-    return { fetching, isLoading, dataFetch } as const;
+    fetchData();
+
+    return () => {
+      controller.abort();
+    };
+  }, [params, url]);
+
+  return { data, loading, error };
 }

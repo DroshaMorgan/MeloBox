@@ -1,58 +1,52 @@
-import { API_URL_ALBUMS_FULL, CLIENT_ID } from "@/libs/constants";
-import { Image, Table, TableProps } from "antd";
-import axios from "axios";
-import { memo, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useFetching } from '@/hooks/useFetching';
+import { API_URL_ALBUMS } from '@/libs/constants';
+import { Image, Table, TableProps } from 'antd';
+import { memo, useMemo } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const columns: TableProps['columns'] = [
-    {
-        dataIndex: 'image',
-        key: 'image',
-        align: 'center',
-        render: (image) => image ? <Image src={image} height="50px" /> : 'N/A',
-    },
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-    },
-    {
-        title: 'Release date',
-        dataIndex: 'releasedate',
-        key: 'releasedate',
-    },
+  {
+    dataIndex: 'image',
+    key: 'image',
+    align: 'center',
+    render: (image) => (image ? <Image src={image} height="50px" /> : 'N/A'),
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Release date',
+    dataIndex: 'releasedate',
+    key: 'releasedate',
+  },
 ];
 
 const Albums = memo(() => {
-    const [dataFetchAlb, setDataFetchAlb] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-    const artist_name = useParams();
+  const artist_name = useParams();
 
-    async function fetchingAlb() {
-        try {
-            const { data } = await axios.get(API_URL_ALBUMS_FULL + artist_name.id, {
-                params: {
-                    client_id: CLIENT_ID
-                }
-            })
-            setDataFetchAlb(data.results)
-        } finally {
-            setLoading(false)
-        }
-    }
+  const params = useMemo(() => ({ artist_name: artist_name.id }), [artist_name]);
 
-    useEffect(() => {
-        fetchingAlb()
-    }, [])
+  const { data, loading } = useFetching({
+    url: API_URL_ALBUMS,
+    params,
+  });
 
-    return (
-        <Table columns={columns}
-            dataSource={dataFetchAlb}
-            loading={loading}
-        />
-    );
+  return (
+    <Table
+      columns={columns}
+      dataSource={data}
+      loading={loading}
+      onRow={({ name }) => ({
+        onClick() {
+          navigate(name);
+        },
+      })}
+    />
+  );
 });
 
 export default Albums;

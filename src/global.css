@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --color-primary: 32 93 193;
-        --color-secondary: 252 252 252;
-        --color-typography: 50 50 50;
-    }
+  :root {
+    --color-primary: 100 100 200;
+    --color-secondary: 252 252 252;
+    --color-typography: 50 50 50;
+  }
 }
