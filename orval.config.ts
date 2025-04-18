@@ -1,17 +1,17 @@
 import { defineConfig } from "orval";
-import path from "node:path";
 
 export default defineConfig({
-  auth: {
+  artists: {
     hooks: {
       afterAllFilesWrite: "prettier --write",
     },
     input: {
-      target: "https://api.jamendo.com/v3.0/artists/?client_id=e1ba0143",
+      target:
+        "https://api.jamendo.com/v3.0/artists/?client_id=e1ba0143/openapi.json",
     },
     output: {
-      workspace: "generated/auth",
-      baseUrl: "/auth",
+      workspace: "generated/artists",
+      baseUrl: "/artists",
       clean: true,
       client: "react-query",
       headers: true,
