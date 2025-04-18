@@ -1,7 +1,7 @@
 import { useFetching } from '@/hooks/useFetching';
 import { API_URL_TRACKS } from '@/libs/constants';
 import { Image, Table, TableProps } from 'antd';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 const columns: TableProps['columns'] = [
@@ -16,21 +16,17 @@ const columns: TableProps['columns'] = [
     dataIndex: 'name',
     key: 'name',
   },
-  {
-    title: 'Release date',
-    dataIndex: 'releasedate',
-    key: 'releasedate',
-  },
 ];
 
 const Tracks = memo(() => {
   const name = useParams();
 
-  const { data, loading } = useFetching({
-    url: API_URL_TRACKS + name.id,
-  });
+  const params = useMemo(() => ({ name: name.id }), [name]);
 
-  console.log(data, API_URL_TRACKS + name.id);
+  const { data, loading } = useFetching({
+    url: API_URL_TRACKS,
+    params,
+  });
 
   return <Table columns={columns} dataSource={data} loading={loading} />;
 });

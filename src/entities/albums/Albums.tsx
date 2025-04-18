@@ -1,7 +1,7 @@
 import { useFetching } from '@/hooks/useFetching';
-import { API_URL_ALBUMS_FULL } from '@/libs/constants';
+import { API_URL_ALBUMS } from '@/libs/constants';
 import { Image, Table, TableProps } from 'antd';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const columns: TableProps['columns'] = [
@@ -28,11 +28,13 @@ const Albums = memo(() => {
 
   const artist_name = useParams();
 
+  const params = useMemo(() => ({ artist_name: artist_name.id }), [artist_name]);
+
   const { data, loading } = useFetching({
-    url: API_URL_ALBUMS_FULL + artist_name.id,
+    url: API_URL_ALBUMS,
+    params,
   });
 
-  console.log(API_URL_ALBUMS_FULL + artist_name.id);
   return (
     <Table
       columns={columns}
