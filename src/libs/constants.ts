@@ -6,7 +6,7 @@ export const API_URL_ALBUMS_FULL = 'https://api.jamendo.com/v3.0/albums/?artist_
 
 export const API_URL_ALBUMS = 'https://api.jamendo.com/v3.0/albums';
 
-export const API_URL_TRACKS = 'https://api.jamendo.com/v3.0/albums/tracks';
+export const API_URL_TRACKS = 'https://api.jamendo.com/v3.0/albums/tracks/?name=';
 
 export const CLIENT_ID_FULL = 'client_id=e1ba0143';
 

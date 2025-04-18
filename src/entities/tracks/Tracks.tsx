@@ -24,13 +24,13 @@ const columns: TableProps['columns'] = [
 ];
 
 const Tracks = memo(() => {
-  const albumName = useParams();
+  const name = useParams();
 
   const { data, loading } = useFetching({
-    url: API_URL_TRACKS + albumName.id,
+    url: API_URL_TRACKS + name.id,
   });
 
-  console.log(data, API_URL_TRACKS + albumName.id);
+  console.log(data, API_URL_TRACKS + name.id);
 
   return <Table columns={columns} dataSource={data} loading={loading} />;
 });
