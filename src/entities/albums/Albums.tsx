@@ -1,7 +1,8 @@
-import { useFetching } from '@/hooks/useFetching';
+import Toolbar from '@/components/Toolbar';
+import { useFetchingQuery } from '@/hooks/useFetchingQuery';
 import { API_URL_ALBUMS } from '@/libs/constants';
 import { Image, Table, TableProps } from 'antd';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const columns: TableProps['columns'] = [
@@ -30,22 +31,39 @@ const Albums = memo(() => {
 
   const params = useMemo(() => ({ artist_name: artist_name.id }), [artist_name]);
 
-  const { data, loading } = useFetching({
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { data, isLoading } = useFetchingQuery({
     url: API_URL_ALBUMS,
     params,
+    queryKey: ['albums', artist_name.id ?? ''],
+    page: currentPage,
   });
 
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      loading={loading}
-      onRow={({ name }) => ({
-        onClick() {
-          navigate(name);
-        },
-      })}
-    />
+    <section>
+      <Toolbar title="Альбомы" back />
+
+      <Table
+        columns={columns}
+        dataSource={data}
+        loading={isLoading}
+        onRow={({ name }) => ({
+          onClick() {
+            navigate(name);
+          },
+        })}
+        pagination={{
+          showSizeChanger: false,
+          onChange: (page) => setCurrentPage(page),
+          current: currentPage,
+          pageSize: 20,
+          position: ['bottomCenter'],
+          showTotal: (total) => `Найдено ${total}`,
+          size: 'default',
+        }}
+      />
+    </section>
   );
 });
 
