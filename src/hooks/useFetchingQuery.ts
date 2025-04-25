@@ -1,22 +1,34 @@
-// hooks/useFetching.ts
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { CLIENT_ID } from '@/libs/constants';
 
-interface UseFetchingQueryOptions {
+interface UseFetchingQueryProps {
   url: string;
   params?: Record<string, unknown>;
+  page: number;
+  page_size?: number;
   queryKey: string[];
 }
 
-export function useFetchingQuery({ url, params, queryKey }: UseFetchingQueryOptions) {
+export function useFetchingQuery({
+  url,
+  params = {},
+  page,
+  page_size = 20,
+  queryKey,
+}: UseFetchingQueryProps) {
   return useQuery({
-    queryKey,
+    queryKey: [...queryKey, page],
     queryFn: async () => {
-      const response = await axios.get(url, {
-        params: { client_id: CLIENT_ID, ...params },
+      const { data } = await axios.get(url, {
+        params: {
+          client_id: CLIENT_ID,
+          ...params,
+          limit: 'all',
+          offset: (page - 1) * page_size,
+        },
       });
-      return response.data.results;
+      return data.results;
     },
   });
 }
